@@ -1,0 +1,73 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Dependency_Injection_01
+{
+
+    public interface IAccount
+    {
+        void PrintData();
+    }
+    //Implemented the IAccount interface in SavingAccount class  
+    public class SavingAccount : IAccount
+    {
+        public void PrintData()
+        {
+            Console.WriteLine("Saving account data.");
+        }
+    }
+
+    public class CurrentAccount : IAccount
+    {
+        public void PrintData()
+        {
+            Console.WriteLine("Current account data.");
+        }
+    }
+
+    public class Account
+    {
+        private IAccount account;
+
+        //Passing IAccount interface as parameter to Account constructor  
+        public Account(IAccount account)
+        {
+            this.account = account;
+        }
+
+        public void PrintAccounts()
+        {
+            account.PrintData();
+        }
+    }
+
+
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            //If you want to calls the SavingAccount class PrintAccounts() method,   
+            //just created the object of SavingAccount() and   
+            //pass as parameter to Account constructor.  
+            IAccount savingAccount = new SavingAccount();
+            Account account = new Account(savingAccount);
+            account.PrintAccounts();
+
+            ////If you want to calls the CurrentAccount class PrintAccounts() method,   
+            ////just created the object of CurrentAccount () and   
+            ////pass as parameter to Account constructor.  
+            //IAccount currentAccount = new CurrentAccount();
+            //account = new Account(currentAccount);
+            //account.PrintAccounts();
+            Console.ReadLine();
+        }
+    }
+}

@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Dependency_Injection_01
+{
+    public class SavingAccount
+    {
+        public void PrintData()
+        {
+            Console.WriteLine("Saving account data.");
+        }
+    }
+    public class CurrentAccount
+    {
+        public void PrintData()
+        {
+            Console.WriteLine("Current account data.");
+        }
+    }
+    //This account class is tightly couple as every time,   
+    //we need to create the instance of both SavingAccount   
+    //and CurrentAccount class to call the PrintData() method of each.  
+    public class Account
+    {
+        //Here I need to craete the SavingAccount object   
+        //to call the SavingAccount PrintData()  
+        SavingAccount savingAccount = new SavingAccount();
+
+        //Here I need to craete the CurrentAccount object   
+        //to call the SavingAccount PrintData()  
+        CurrentAccount currentAccount = new CurrentAccount();
+
+        public void PrintAccounts()
+        {
+            savingAccount.PrintData();
+            currentAccount.PrintData();
+        }
+    }
+   
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            Account account = new Account();
+            account.PrintAccounts();
+            Console.ReadLine();
+        }
+    }
+}
